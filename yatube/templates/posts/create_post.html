@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load user_filters %}
+{% block title %}
+{% if is_edit%}Редактировать запись{% else %}Добавить запись{% endif%}
+{% endblock %}
+{% block content %}
+    <main>
+      <div class="container py-5">
+        <div class="row justify-content-center">
+          <div class="col-md-8 p-5">
+            <div class="card">
+              <div class="card-header">       
+                {% if is_edit%}Редактировать пост{% else %}Новый пост{% endif%}             
+              </div>
+              <div class="card-body">        
+                <form method="post" enctype="multipart/form-data"
+                {% if action_url %}
+                action="{% url action_url %}"
+                {% endif %}>
+				        {% csrf_token %}                            
+                {% for field in form %}<div class="form-group row my-3 p-3"
+                  {% if field.field.required %} 
+                    aria-required="true"
+                  {% else %}
+                    aria-required="false"
+                  {% endif %}
+                >
+                {% endfor %}
+                    <label for="id_text">
+                      <label for='{{ form.text.label_tag }}'>Текст:</label>                 
+                      <span class="required text-danger" >*</span>                  
+                    </label>
+					            {{ form.text|addclass:"form-control" }}					
+                    <small id="id_text-help" class="form-text text-muted">
+                      Текст нового поста
+                    </small>                  
+                  </div>            
+                  <div class="form-group row my-3 p-3">
+                    <label for="id_group">
+                      <label for='{{ form.group.label_tag }}'>Группа:</label>                 
+                    </label>
+                      {{ form.group }}
+                    <small id="id_group-help" class="form-text text-muted">
+                      Группа, к которой будет относиться пост
+                    </small>
+                  </div>
+                  <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary">
+                    {% if is_edit%}Сохранить{% else %}Добавить{% endif%}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+{% endblock %}
