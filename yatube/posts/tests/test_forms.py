@@ -9,6 +9,7 @@ import shutil
 
 TEMP_MEDIA_ROOT = tempfile.mkdtemp(dir=settings.BASE_DIR)
 
+
 @override_settings(MEDIA_ROOT=TEMP_MEDIA_ROOT)
 class PostURLTests(TestCase):
     @classmethod
@@ -32,7 +33,7 @@ class PostURLTests(TestCase):
         """Удаляем тестовые медиа."""
         super().tearDownClass()
         shutil.rmtree(TEMP_MEDIA_ROOT, ignore_errors=True)
-    
+
     def setUp(self):
         self.guest_client = Client()
         self.authorized_client = Client()
@@ -75,10 +76,10 @@ class PostURLTests(TestCase):
         self.assertEqual(Post.objects.count(), post_count + 1)
         self.assertTrue(
             Post.objects.filter(
-                text='Тестовый текст', 
+                text='Тестовый текст',
                 group=self.group.pk,
                 author=self.auth_user,
-                ).exists()
+            ).exists()
         )
 
     def test_edit_post_is_valid(self):

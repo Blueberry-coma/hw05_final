@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from .models import Post, Group, User, Follow
 from .forms import PostForm, CommentForm
 from .utils import pagination
-from django.views.decorators.cache import cache_page
 
 
 def group_posts(request, slug):

@@ -219,7 +219,7 @@ class PostURLTests(TestCase):
     def test_follow(self):
         """Тестирование подписки на автора."""
         count_follow = Follow.objects.count()
-        new_author = User.objects.create(username='Lermontov')
+        new_author = User.objects.create(username='Lev')
         self.authorized_client.get(
             reverse(
                 'posts:profile_follow',
@@ -233,7 +233,7 @@ class PostURLTests(TestCase):
     def test_unfollow(self):
         """Тестирование отписки от автора."""
         count_follow = Follow.objects.count()
-        new_author = User.objects.create(username='Lermontov')
+        new_author = User.objects.create(username='Lev')
         self.authorized_client.get(
             reverse(
                 'posts:profile_follow',
